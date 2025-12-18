@@ -8,5 +8,10 @@ import com.example.demo.service.StudentService;
 @RestController;
 public class StudentController{
     @Autowired
-    Student
+    StudentService src;
+    @PostMapping("/post")
+    public StudentEntity postdata(@RequestBody StudentEntity st){
+        return src.savedata();
+        
+    }
 }
