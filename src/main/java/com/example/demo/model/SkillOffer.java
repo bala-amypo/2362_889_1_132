@@ -4,5 +4,7 @@ public class SkillOffer(){
     private long id;
     private 
     
-    private String experienceLevel
+    private String experienceLevel;
+    private Integer availableHoursPerWeek;
+    private Boolean active;
 }
