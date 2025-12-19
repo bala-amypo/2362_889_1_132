@@ -2,8 +2,8 @@ package com.example.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.entity.;
+import com.example.demo.entity.SkillRequest;
 
-public interface BranchProfileRepository extends JpaRepository<BranchProfile, Long> {
+public interface SkillRequestRepository extends JpaRepository<SkillRequest, Long> {
 
 }
