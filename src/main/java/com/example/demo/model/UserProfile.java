@@ -1,30 +1,32 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.sql.Timestamp;
 
+@Entity
+@Table(name = "user_profiles")
 public class UserProfile {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String username;
-    private String email;
+
+    @Column(nullable = false)
+    private String fullName;
+
+    @Column(nullable = false)
     private String bio;
+
+    @Column(nullable = false)
     private Boolean active;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
 
     public UserProfile() {
     }
 
-    public UserProfile(long id, String username, String email, String bio,
-                       Boolean active, Timestamp createdAt, Timestamp updatedAt) {
+    public UserProfile(long id, String fullName, String bio, Boolean active) {
         this.id = id;
-        this.username = username;
-        this.email = email;
+        this.fullName = fullName;
         this.bio = bio;
         this.active = active;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     public long getId() {
@@ -35,51 +37,27 @@ public class UserProfile {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFullName() {
+        return fullName;
     }
- 
-    public void setUsername(String username) {
-        this.username = username;
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
- 
-    public String getEmail() {
-        return email;
-    }
- 
-    public void setEmail(String email) {
-        this.email = email;
-    }
- 
+
     public String getBio() {
         return bio;
     }
- 
+
     public void setBio(String bio) {
         this.bio = bio;
     }
- 
+
     public Boolean getActive() {
         return active;
     }
- 
+
     public void setActive(Boolean active) {
         this.active = active;
-    }
- 
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
- 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
- 
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
- 
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }
