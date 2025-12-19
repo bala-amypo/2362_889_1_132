@@ -2,8 +2,8 @@ package com.example.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.entity.BranchProfile;
+import com.example.demo.entity.MatchRecord;
 
-public interface MatchRecordRepository extends JpaRepository<Match, Long> {
+public interface MatchRecordRepository extends JpaRepository<MatchRecord, Long> {
 
 }
