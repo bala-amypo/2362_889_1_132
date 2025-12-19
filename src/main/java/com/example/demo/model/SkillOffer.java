@@ -1,8 +1,8 @@
 package com.example.demo.model;
 
-public class SkillOffer(){
+public class SkillOffer{
     private long id;
-    private 
+     
     
     private String experienceLevel;
     private Integer availableHoursPerWeek;
