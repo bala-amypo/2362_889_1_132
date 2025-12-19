@@ -2,6 +2,6 @@ package com.example.demo.model;
 
 public class MatchRecord{
     private long id;
-    private Timestamp matchedAt;
+    private LocalDateTime matchedAt;
     private String status;
 }
