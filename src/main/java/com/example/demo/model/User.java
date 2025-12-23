@@ -129,5 +129,4 @@ public class User {
         this.skillRequests = skillRequests;
     }
 
-    // getters and setters
 }

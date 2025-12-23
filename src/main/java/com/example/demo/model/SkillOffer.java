@@ -1,40 +1,78 @@
-package com.example.demo.model;
+package com.example.barter.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "skill_offers")
 public class SkillOffer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(nullable = false)
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private SkillCategory skillCategory;
+
+    @Column(nullable=false)
+    private String skillName;
+
+    private String description;
+
+    @Column(nullable=false)
     private String experienceLevel;
 
-    @Column(nullable = false)
-    private Integer availableHoursPerWeek;
+    private String availability = "AVAILABLE";
 
-    @Column(nullable = false)
-    private Boolean active;
+    private LocalDateTime createdAt;
 
-    public SkillOffer() {
+    @PrePersist
+    void onCreate() {
+        createdAt = LocalDateTime.now();
     }
 
-    public SkillOffer(long id, String experienceLevel, Integer availableHoursPerWeek, Boolean active) {
-        this.id = id;
-        this.experienceLevel = experienceLevel;
-        this.availableHoursPerWeek = availableHoursPerWeek;
-        this.active = active;
-    }
+    public SkillOffer() {}
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public SkillCategory getSkillCategory() {
+        return skillCategory;
+    }
+
+    public void setSkillCategory(SkillCategory skillCategory) {
+        this.skillCategory = skillCategory;
+    }
+
+    public String getSkillName() {
+        return skillName;
+    }
+
+    public void setSkillName(String skillName) {
+        this.skillName = skillName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getExperienceLevel() {
@@ -45,19 +83,20 @@ public class SkillOffer {
         this.experienceLevel = experienceLevel;
     }
 
-    public Integer getAvailableHoursPerWeek() {
-        return availableHoursPerWeek;
+    public String getAvailability() {
+        return availability;
     }
 
-    public void setAvailableHoursPerWeek(Integer availableHoursPerWeek) {
-        this.availableHoursPerWeek = availableHoursPerWeek;
+    public void setAvailability(String availability) {
+        this.availability = availability;
     }
 
-    public Boolean getActive() {
-        return active;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
+
 }

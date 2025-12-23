@@ -1,45 +1,45 @@
-package com.example.demo.model;
+package com.example.barter.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "match_records")
-public class MatchRecord {
+public class BarterTransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(nullable = false)
-    private LocalDateTime matchedAt;
+    @ManyToOne
+    private SkillMatch match;
 
-    @Column(nullable = false)
-    private String status;
+    private String status = "INITIATED";
 
-    public MatchRecord() {
+    private Integer offererRating;
+    private Integer requesterRating;
+
+    private LocalDateTime completedAt;
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    void onCreate() {
+        createdAt = LocalDateTime.now();
     }
 
-    public MatchRecord(long id, LocalDateTime matchedAt, String status) {
-        this.id = id;
-        this.matchedAt = matchedAt;
-        this.status = status;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public LocalDateTime getMatchedAt() {
-        return matchedAt;
+    public SkillMatch getMatch() {
+        return match;
     }
 
-    public void setMatchedAt(LocalDateTime matchedAt) {
-        this.matchedAt = matchedAt;
+    public void setMatch(SkillMatch match) {
+        this.match = match;
     }
 
     public String getStatus() {
@@ -49,4 +49,37 @@ public class MatchRecord {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Integer getOffererRating() {
+        return offererRating;
+    }
+
+    public void setOffererRating(Integer offererRating) {
+        this.offererRating = offererRating;
+    }
+
+    public Integer getRequesterRating() {
+        return requesterRating;
+    }
+
+    public void setRequesterRating(Integer requesterRating) {
+        this.requesterRating = requesterRating;
+    }
+
+    public LocalDateTime getCompletedAt() {
+        return completedAt;
+    }
+
+    public void setCompletedAt(LocalDateTime completedAt) {
+        this.completedAt = completedAt;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
 }

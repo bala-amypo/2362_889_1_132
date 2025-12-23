@@ -1,51 +1,92 @@
-package com.example.demo.model;
+package com.example.barter.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "skill_requests")
 public class SkillRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(nullable = false)
-    private String urgencyLevel;
+    @ManyToOne
+    private User user;
 
-    @Column(nullable = false)
-    private Boolean active;
+    @ManyToOne
+    private SkillCategory skillCategory;
 
-    public SkillRequest() {
+    @Column(nullable=false)
+    private String skillName;
+
+    @Column(nullable=false)
+    private String requiredLevel;
+
+    private String status = "OPEN";
+
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    void onCreate() {
+        createdAt = LocalDateTime.now();
     }
 
-    public SkillRequest(long id, String urgencyLevel, Boolean active) {
-        this.id = id;
-        this.urgencyLevel = urgencyLevel;
-        this.active = active;
-    }
+    public SkillRequest() {}
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getUrgencyLevel() {
-        return urgencyLevel;
+    public User getUser() {
+        return user;
     }
 
-    public void setUrgencyLevel(String urgencyLevel) {
-        this.urgencyLevel = urgencyLevel;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Boolean getActive() {
-        return active;
+    public SkillCategory getSkillCategory() {
+        return skillCategory;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setSkillCategory(SkillCategory skillCategory) {
+        this.skillCategory = skillCategory;
     }
+
+    public String getSkillName() {
+        return skillName;
+    }
+
+    public void setSkillName(String skillName) {
+        this.skillName = skillName;
+    }
+
+    public String getRequiredLevel() {
+        return requiredLevel;
+    }
+
+    public void setRequiredLevel(String requiredLevel) {
+        this.requiredLevel = requiredLevel;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
 }
