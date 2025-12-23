@@ -1,46 +1,22 @@
 package com.example.barter.controller;
 
-import com.example.barter.model.SkillMatch;
-import com.example.barter.service.MatchService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/matches")
+@Tag(name = "Match", description = "Skill match management endpoints")
 public class MatchController {
 
-    private final MatchService matchService;
-
-    public MatchController(MatchService matchService) {
-        this.matchService = matchService;
-    }
-
-    @PostMapping
-    public ResponseEntity<SkillMatch> create(
-            @RequestParam Long offerId,
-            @RequestParam Long requestId,
-            @RequestParam Long adminUserId) {
-        return ResponseEntity.ok(
-                matchService.createMatch(offerId, requestId, adminUserId)
-        );
-    }
-
-    @GetMapping
-    public ResponseEntity<List<SkillMatch>> all() {
-        return ResponseEntity.ok(matchService.getAllMatches());
+    @GetMapping("/")
+    public ResponseEntity<String> getAllMatches() {
+        return ResponseEntity.ok("All matches endpoint");
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SkillMatch> get(@PathVariable Long id) {
-        return ResponseEntity.ok(matchService.getMatch(id));
-    }
-
-    @PutMapping("/{id}/status")
-    public ResponseEntity<SkillMatch> updateStatus(
-            @PathVariable Long id,
-            @RequestParam String status) {
-        return ResponseEntity.ok(matchService.updateMatchStatus(id, status));
+    public ResponseEntity<String> getMatch(@PathVariable Long id) {
+        return ResponseEntity.ok("Match with ID: " + id);
     }
 }
