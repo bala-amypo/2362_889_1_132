@@ -4,30 +4,23 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import java.util.*;
-
 
 @Configuration
 public class OpenApiConfig {
-
+    
     @Bean
     public OpenAPI customOpenAPI() {
-
-        final String securitySchemeName = "bearerAuth";
-
         return new OpenAPI()
-                .servers(List.of(
-                        new Server().url("https://9369.pro604cr.amypo.ai/")
-                ))
-                .addSecurityItem(new SecurityRequirement()
-                        .addList(securitySchemeName))
+                .info(new Info()
+                        .title("Skill Barter Matchmaking Platform API")
+                        .version("1.0")
+                        .description("API for skill offers, requests, matching engine, and barter transaction management"))
+                .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
                 .components(new io.swagger.v3.oas.models.Components()
-                        .addSecuritySchemes(securitySchemeName,
+                        .addSecuritySchemes("Bearer Authentication",
                                 new SecurityScheme()
-                                        .name(securitySchemeName)
                                         .type(SecurityScheme.Type.HTTP)
                                         .scheme("bearer")
                                         .bearerFormat("JWT")));
