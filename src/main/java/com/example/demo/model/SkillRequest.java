@@ -3,9 +3,11 @@ package com.example.demo.model;
 public class SkillRequest {
 
     private Long id;
-    private String skill;
-    private String urgencyLevel; // REQUIRED
+    private String skillName;
+    private String requiredLevel;
+    private String urgencyLevel;
 
+    // ----- ID -----
     public Long getId() {
         return id;
     }
@@ -14,14 +16,25 @@ public class SkillRequest {
         this.id = id;
     }
 
-    public String getSkill() {
-        return skill;
+    // ----- Skill Name -----
+    public String getSkillName() {
+        return skillName;
     }
 
-    public void setSkill(String skill) {
-        this.skill = skill;
+    public void setSkillName(String skillName) {
+        this.skillName = skillName;
     }
 
+    // ----- Required Level -----
+    public String getRequiredLevel() {
+        return requiredLevel;
+    }
+
+    public void setRequiredLevel(String requiredLevel) {
+        this.requiredLevel = requiredLevel;
+    }
+
+    // ----- Urgency Level -----
     public String getUrgencyLevel() {
         return urgencyLevel;
     }
