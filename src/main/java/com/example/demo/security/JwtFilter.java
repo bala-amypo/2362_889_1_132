@@ -14,15 +14,16 @@ import java.util.Collections;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
+    
     private final JwtUtil jwtUtil;
-
+    
     public JwtFilter(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
-
+    
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, 
-            FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) 
+            throws ServletException, IOException {
         
         String authHeader = request.getHeader("Authorization");
         
@@ -33,9 +34,14 @@ public class JwtFilter extends OncePerRequestFilter {
                 String email = jwtUtil.getEmail(token);
                 String role = jwtUtil.getRole(token);
                 
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                    email, null, Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role)));
-                SecurityContextHolder.getContext().setAuthentication(auth);
+                UsernamePasswordAuthenticationToken authentication = 
+                        new UsernamePasswordAuthenticationToken(
+                                email, 
+                                null, 
+                                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role))
+                        );
+                
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
         
