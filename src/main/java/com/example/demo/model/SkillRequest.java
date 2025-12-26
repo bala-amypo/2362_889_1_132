@@ -1,13 +1,23 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class SkillRequest {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String skillName;
     private String requiredLevel;
     private String urgencyLevel;
 
-    // ----- ID -----
+    // ----- getters & setters -----
+
     public Long getId() {
         return id;
     }
@@ -16,7 +26,6 @@ public class SkillRequest {
         this.id = id;
     }
 
-    // ----- Skill Name -----
     public String getSkillName() {
         return skillName;
     }
@@ -25,7 +34,6 @@ public class SkillRequest {
         this.skillName = skillName;
     }
 
-    // ----- Required Level -----
     public String getRequiredLevel() {
         return requiredLevel;
     }
@@ -34,7 +42,6 @@ public class SkillRequest {
         this.requiredLevel = requiredLevel;
     }
 
-    // ----- Urgency Level -----
     public String getUrgencyLevel() {
         return urgencyLevel;
     }
