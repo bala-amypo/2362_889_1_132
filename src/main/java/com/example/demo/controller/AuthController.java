@@ -16,38 +16,37 @@ import java.util.Map;
 @RequestMapping("/auth")
 @Tag(name = "Auth", description = "Authentication endpoints")
 public class AuthController {
-    
+   
     private final UserService userService;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
-    
+   
     public AuthController(UserService userService, JwtUtil jwtUtil, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.jwtUtil = jwtUtil;
         this.passwordEncoder = passwordEncoder;
     }
-    
+   
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody User user) {
         User savedUser = userService.register(user);
         
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("role", savedUser.getRole());
-        String token = jwtUtil.generateToken(claims, savedUser.getEmail());
+        // FIX: Pass arguments directly (email, role, userId) instead of a Map
+        String token = jwtUtil.generateToken(savedUser.getEmail(), savedUser.getRole(), savedUser.getId());
         
         AuthResponse response = new AuthResponse(token, savedUser.getId(), savedUser.getEmail(), savedUser.getRole());
         return ResponseEntity.ok(response);
     }
-    
+   
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
         User user = userService.findByEmail(request.getEmail());
         
         if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            Map<String, Object> claims = new HashMap<>();
-            claims.put("role", user.getRole());
-            String token = jwtUtil.generateToken(claims, user.getEmail());
             
+            // FIX: Pass arguments directly (email, role, userId) instead of a Map
+            String token = jwtUtil.generateToken(user.getEmail(), user.getRole(), user.getId());
+
             AuthResponse response = new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
             return ResponseEntity.ok(response);
         }
