@@ -1,47 +1,29 @@
 package com.example.demo.util;
 
-import com.example.demo.model.SkillOffer;
 import com.example.demo.model.SkillRequest;
-import org.springframework.stereotype.Component; // Added Component annotation
-
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Component // Make this a Spring Bean so it can be injected into MatchServiceImpl
 public class SkillMatchingEngine {
 
-    // Existing method
-    public static List<SkillOffer> matchSkills(
-            List<SkillOffer> offers,
-            SkillRequest request
-    ) {
-        return offers.stream()
-                .filter(offer ->
-                        offer.getSkillName().equalsIgnoreCase(request.getSkillName()))
-                .collect(Collectors.toList());
-    }
+    public static void matchSkills(List<SkillRequest> requests) {
 
-    // NEW METHOD: Added to fix the compilation error
-    public double calculateMatchScore(SkillOffer offer, SkillRequest request) {
-        if (offer == null || request == null) {
-            return 0.0;
+        for (SkillRequest request : requests) {
+
+            String skillName = request.getSkillName();
+            int requiredLevel = request.getRequiredLevel();
+
+            // ✅ int is handled correctly
+            System.out.println(
+                "Matching skill: " + skillName +
+                " | Required Level: " + requiredLevel
+            );
+
+            // Example matching logic
+            if (requiredLevel >= 5) {
+                System.out.println("→ Advanced level skill request");
+            } else {
+                System.out.println("→ Beginner/Intermediate skill request");
+            }
         }
-
-        double score = 0.0;
-
-        // Basic matching logic: Check if skill names match (case insensitive)
-        if (offer.getSkillName().equalsIgnoreCase(request.getSkillName())) {
-            score += 50.0;
-        }
-
-        // Check if levels match
-        // Assuming simplistic logic: if offer is EXPERT, it covers everything.
-        if (offer.getExperienceLevel().equalsIgnoreCase(request.getRequiredLevel())) {
-            score += 50.0;
-        } else if ("EXPERT".equalsIgnoreCase(offer.getExperienceLevel())) {
-            score += 40.0; // Expert offers allow lower level requests
-        }
-
-        return score;
     }
 }

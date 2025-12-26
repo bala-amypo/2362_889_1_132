@@ -1,27 +1,41 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.SkillRequest;
+import com.example.demo.repository.SkillRequestRepository;
 import com.example.demo.service.SkillRequestService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @Service
 public class SkillRequestServiceImpl implements SkillRequestService {
 
-    private final Map<Long, SkillRequest> store = new HashMap<>();
-    private long counter = 1;
+    private final SkillRequestRepository skillRequestRepository;
 
-    @Override
-    public SkillRequest create(SkillRequest request) {
-        request.setId(counter++);
-        store.put(request.getId(), request);
-        return request;
+    public SkillRequestServiceImpl(SkillRequestRepository skillRequestRepository) {
+        this.skillRequestRepository = skillRequestRepository;
     }
 
     @Override
-    public SkillRequest getRequestById(long id) {
-        return store.get(id);
+    public SkillRequest createSkillRequest(SkillRequest request) {
+        // ❌ DO NOT set ID manually
+        // JPA will auto-generate it
+        return skillRequestRepository.save(request);
+    }
+
+    @Override
+    public List<SkillRequest> getAllSkillRequests() {
+        return skillRequestRepository.findAll();
+    }
+
+    @Override
+    public SkillRequest getSkillRequestById(Long id) {
+        return skillRequestRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("SkillRequest not found with id: " + id));
+    }
+
+    @Override
+    public void deleteSkillRequest(Long id) {
+        skillRequestRepository.deleteById(id);
     }
 }
