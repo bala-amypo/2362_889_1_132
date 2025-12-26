@@ -1,4 +1,4 @@
-package com.example.barter.service.impl;
+package com.example.demo.service.impl;
 
 import com.example.barter.exception.ResourceNotFoundException;
 import com.example.barter.model.SkillMatch;
