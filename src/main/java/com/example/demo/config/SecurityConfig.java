@@ -1,4 +1,4 @@
-package com.example.barter.config;
+package com.example.demo.config;
 
 import com.example.barter.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
