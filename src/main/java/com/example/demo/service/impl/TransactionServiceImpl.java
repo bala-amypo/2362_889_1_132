@@ -1,7 +1,7 @@
-package com.example.barter.service.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.demoTransaction;
+import com.example.demo.model.BarterTransaction;
 import com.example.demo.model.SkillMatch;
 import com.example.demo.repository.BarterTransactionRepository;
 import com.example.demo.repository.SkillMatchRepository;
