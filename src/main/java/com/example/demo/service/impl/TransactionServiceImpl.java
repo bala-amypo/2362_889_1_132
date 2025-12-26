@@ -1,11 +1,11 @@
 package com.example.barter.service.impl;
 
-import com.example.barter.exception.ResourceNotFoundException;
-import com.example.barter.model.BarterTransaction;
-import com.example.barter.model.SkillMatch;
-import com.example.barter.repository.BarterTransactionRepository;
-import com.example.barter.repository.SkillMatchRepository;
-import com.example.barter.service.TransactionService;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.demoTransaction;
+import com.example.demo.model.SkillMatch;
+import com.example.demo.repository.BarterTransactionRepository;
+import com.example.demo.repository.SkillMatchRepository;
+import com.example.demo.service.TransactionService;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
