@@ -3,22 +3,25 @@ package com.example.demo.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class JwtUtil {
-    private final String secret = "mySecretKey";
-    private final long validityInMs = 86400000;
 
-    public JwtUtil() {}
+    private final String secret = "mySecretKey123456789"; // use long key
+    private final long validityInMs = 86400000; // 1 day
 
+    // Generate JWT token
     public String generateToken(String email, String role, Long userId) {
+
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
         claims.put("userId", userId);
-        
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(email)
@@ -28,25 +31,28 @@ public class JwtUtil {
                 .compact();
     }
 
+    // Validate token
     public boolean validateToken(String token) {
         try {
             Claims claims = getAllClaims(token);
-            return !claims.getExpiration().before(new Date());
+            return claims.getExpiration().after(new Date());
         } catch (Exception e) {
             return false;
         }
     }
 
-    public String extractEmail(String token) {
+    // Used in JwtFilter
+    public String getEmail(String token) {
         return getAllClaims(token).getSubject();
     }
 
-    public String extractRole(String token) {
-        return (String) getAllClaims(token).get("role");
+    // Used in JwtFilter
+    public String getRole(String token) {
+        return getAllClaims(token).get("role", String.class);
     }
 
-    public Long extractUserId(String token) {
-        return Long.valueOf(getAllClaims(token).get("userId").toString());
+    public Long getUserId(String token) {
+        return getAllClaims(token).get("userId", Long.class);
     }
 
     private Claims getAllClaims(String token) {
