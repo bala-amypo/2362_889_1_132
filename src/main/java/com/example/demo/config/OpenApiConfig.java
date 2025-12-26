@@ -16,10 +16,9 @@ public class OpenApiConfig {
         final String securitySchemeName = "bearerAuth";
 
         return new OpenAPI()
-                .info(new Info()
-                        .title("Skill Barter Matchmaking Platform API")
-                        .description("REST APIs for skill exchange, matching, and transactions")
-                        .version("1.0.0"))
+                .servers(List.of(
+                        new Server().url("https://9109.32pprocr.amypo.ai/")
+                ))
                 .addSecurityItem(new SecurityRequirement()
                         .addList(securitySchemeName))
                 .components(new io.swagger.v3.oas.models.Components()
