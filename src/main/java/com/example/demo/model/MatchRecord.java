@@ -1,20 +1,18 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "match_records")
 public class MatchRecord {
-
-    private SkillRequest skillRequest;
-    private Skill skill;
-
-    public MatchRecord(SkillRequest skillRequest, Skill skill) {
-        this.skillRequest = skillRequest;
-        this.skill = skill;
-    }
-
-    public SkillRequest getSkillRequest() {
-        return skillRequest;
-    }
-
-    public Skill getSkill() {
-        return skill;
-    }
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String status;
+    @ManyToOne @JoinColumn(name = "user_a_id")
+    private UserProfile userA;
+    @ManyToOne @JoinColumn(name = "user_b_id")
+    private UserProfile userB;
+    @ManyToOne private Skill skillOfferedByA;
+    @ManyToOne private Skill skillOfferedByB;
+    // Getters and Setters... [cite: 410-421]
 }
