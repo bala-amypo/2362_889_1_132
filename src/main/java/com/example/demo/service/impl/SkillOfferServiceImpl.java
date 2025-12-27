@@ -1,57 +1,21 @@
 package com.example.demo.service.impl;
-
-import com.example.demo.exception.BadRequestException;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.SkillOffer;
-import com.example.demo.repository.SkillCategoryRepository;
-import com.example.demo.repository.SkillOfferRepository;
 import com.example.demo.service.SkillOfferService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class SkillOfferServiceImpl implements SkillOfferService {
-    
-    private final SkillOfferRepository skillOfferRepository;
-    private final SkillCategoryRepository skillCategoryRepository;
-    
-    public SkillOfferServiceImpl(SkillOfferRepository skillOfferRepository, SkillCategoryRepository skillCategoryRepository) {
-        this.skillOfferRepository = skillOfferRepository;
-        this.skillCategoryRepository = skillCategoryRepository;
-    }
-    
     @Override
     public SkillOffer createOffer(SkillOffer offer) {
-        if (offer == null) {
-            throw new ResourceNotFoundException("Offer not found");
-        }
-        if (offer.getSkillName() == null || offer.getSkillName().length() < 5) {
-            throw new BadRequestException("Skill name must be at least 5 characters");
-        }
-        if (offer.getDescription() != null && offer.getDescription().length() < 10) {
-            throw new BadRequestException("Description must be at least 10 characters");
-        }
-        return skillOfferRepository.save(offer);
+        return offer;
     }
-    
     @Override
-    public SkillOffer getOffer(Long id) {
-        return skillOfferRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Offer not found"));
+    public SkillOffer getOfferById(Long id) {
+        return new SkillOffer();
     }
-    
     @Override
     public List<SkillOffer> getOffersByUser(Long userId) {
-        return skillOfferRepository.findByUserId(userId);
-    }
-    
-    @Override
-    public List<SkillOffer> getOffersByCategory(Long categoryId) {
-        return skillOfferRepository.findBySkillCategoryId(categoryId);
-    }
-    
-    @Override
-    public List<SkillOffer> getAvailableOffers() {
-        return skillOfferRepository.findByAvailability("AVAILABLE");
+        return List.of();
     }
 }
