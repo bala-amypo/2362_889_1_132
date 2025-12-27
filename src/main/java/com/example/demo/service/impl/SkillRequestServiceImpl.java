@@ -17,25 +17,32 @@ public class SkillRequestServiceImpl implements SkillRequestService {
     }
 
     @Override
-    public SkillRequest createSkillRequest(SkillRequest request) {
-        // ❌ DO NOT set ID manually
-        // JPA will auto-generate it
+    public SkillRequest createRequest(SkillRequest request) {
         return skillRequestRepository.save(request);
     }
 
     @Override
-    public List<SkillRequest> getAllSkillRequests() {
+    public SkillRequest getRequestById(long id) {
+        return skillRequestRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("SkillRequest not found with id: " + id));
+    }
+
+    @Override
+    public List<SkillRequest> getAllRequests() {
         return skillRequestRepository.findAll();
     }
 
     @Override
-    public SkillRequest getSkillRequestById(Long id) {
-        return skillRequestRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("SkillRequest not found with id: " + id));
+    public SkillRequest updateRequest(long id, SkillRequest request) {
+        SkillRequest existing = getRequestById(id);
+        existing.setSkillName(request.getSkillName()); // adjust fields as needed
+        existing.setDescription(request.getDescription());
+        return skillRequestRepository.save(existing);
     }
 
     @Override
-    public void deleteSkillRequest(Long id) {
+    public void deleteRequest(long id) {
         skillRequestRepository.deleteById(id);
     }
 }
