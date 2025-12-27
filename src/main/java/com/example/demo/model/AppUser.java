@@ -15,7 +15,10 @@ public class AppUser {
     private String role;
     private LocalDateTime createdAt;
 
-    public AppUser() { this.createdAt = LocalDateTime.now(); }
+    public AppUser() {
+        this.createdAt = LocalDateTime.now();
+    }
+
     public AppUser(String fullName, String email, String password, String role) {
         this.fullName = fullName;
         this.email = email;
@@ -23,5 +26,12 @@ public class AppUser {
         this.role = role;
         this.createdAt = LocalDateTime.now();
     }
-    // Getters and Setters omitted for brevity... [cite: 374-387]
+
+    // These getters are REQUIRED to fix AuthController errors
+    public Long getId() { return id; }
+    public String getFullName() { return fullName; }
+    public String getEmail() { return email; }
+    public String getPassword() { return password; }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 }
