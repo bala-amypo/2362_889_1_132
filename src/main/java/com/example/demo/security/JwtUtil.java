@@ -3,8 +3,10 @@ package com.example.demo.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,52 +14,41 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private final String secret = "mySecretKey123456789"; // use long key
-    private final long validityInMs = 86400000; // 1 day
+    // In a real app, use a long, secure key from environment variables
+    private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final long expirationTime = 86400000; // 24 hours
 
-    // Generate JWT token
-    public String generateToken(String email, String role, Long userId) {
-
+    public String generateToken(String email, String role, Long id) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
-        claims.put("userId", userId);
+        claims.put("userId", id);
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(email)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + validityInMs))
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+                .signWith(key)
                 .compact();
     }
 
-    // Validate token
     public boolean validateToken(String token) {
         try {
-            Claims claims = getAllClaims(token);
-            return claims.getExpiration().after(new Date());
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    // Used in JwtFilter
-    public String getEmail(String token) {
-        return getAllClaims(token).getSubject();
+    public String extractEmail(String token) {
+        return extractAllClaims(token).getSubject();
     }
 
-    // Used in JwtFilter
-    public String getRole(String token) {
-        return getAllClaims(token).get("role", String.class);
-    }
-
-    public Long getUserId(String token) {
-        return getAllClaims(token).get("userId", Long.class);
-    }
-
-    private Claims getAllClaims(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
+    private Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
     }
