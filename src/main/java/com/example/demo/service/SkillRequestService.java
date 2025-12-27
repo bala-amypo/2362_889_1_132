@@ -1,10 +1,12 @@
-package com.example.demo.service;
-
-import com.example.demo.model.SkillRequest;
-
 public interface SkillRequestService {
 
-    SkillRequest create(SkillRequest request);
+    SkillRequest createRequest(SkillRequest request);
 
     SkillRequest getRequestById(long id);
+
+    List<SkillRequest> getAllRequests();
+
+    SkillRequest updateRequest(long id, SkillRequest request);
+
+    void deleteRequest(long id);
 }
