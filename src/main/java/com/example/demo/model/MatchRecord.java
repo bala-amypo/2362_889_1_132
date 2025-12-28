@@ -10,6 +10,7 @@ public class MatchRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Change the type from UserProfile to AppUser
     @ManyToOne
     private AppUser userA;
 
@@ -17,17 +18,17 @@ public class MatchRecord {
     private AppUser userB;
 
     @ManyToOne
-    private Skill skillOfferedByA; // Required by test line 384
+    private Skill skillOfferedByA;
 
     @ManyToOne
-    private Skill skillOfferedByB; // Required by test line 385
+    private Skill skillOfferedByB;
 
     private String status;
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
+    // Use AppUser here to match the test requirements
     public AppUser getUserA() { return userA; }
     public void setUserA(AppUser userA) { this.userA = userA; }
 
@@ -37,7 +38,6 @@ public class MatchRecord {
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
-    // Fixed: Added Skill Barter methods for the test
     public void setSkillOfferedByA(Skill skill) { this.skillOfferedByA = skill; }
     public Skill getSkillOfferedByA() { return skillOfferedByA; }
 
