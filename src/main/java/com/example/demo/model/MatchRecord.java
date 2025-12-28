@@ -7,13 +7,10 @@ import jakarta.persistence.*;
 public class MatchRecord {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
     @ManyToOne
     private UserProfile userA;
-    
     @ManyToOne
     private UserProfile userB;
-    
     private String status;
 
     public Long getId() { return id; }
