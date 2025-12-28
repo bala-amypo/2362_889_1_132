@@ -5,13 +5,60 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "skill_requests")
 public class SkillRequest {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String urgencyLevel;
     private boolean active = true;
-    @ManyToOne @JoinColumn(name = "user_id")
+
+    @ManyToOne 
+    @JoinColumn(name = "user_id")
     private UserProfile user;
-    @ManyToOne @JoinColumn(name = "skill_id")
+
+    @ManyToOne 
+    @JoinColumn(name = "skill_id")
     private Skill skill;
-    // Getters and Setters... [cite: 492-501]
+
+    // --- MUST ADD THESE METHODS TO CLEAR ERRORS ---
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUrgencyLevel() {
+        return urgencyLevel;
+    }
+
+    public void setUrgencyLevel(String urgencyLevel) {
+        this.urgencyLevel = urgencyLevel;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public UserProfile getUser() {
+        return user;
+    }
+
+    public void setUser(UserProfile user) {
+        this.user = user;
+    }
+
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
 }
