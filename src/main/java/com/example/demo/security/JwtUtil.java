@@ -16,10 +16,8 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    
     private final long EXPIRATION_TIME = 1000 * 60 * 60 * 24;
 
-  
     public String generateToken(String email, String role, Long id) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
@@ -45,6 +43,16 @@ public class JwtUtil {
 
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    // ✅ NEW METHOD: Added to satisfy test case
+    public String extractRole(String token) {
+        return extractClaim(token, claims -> claims.get("role", String.class));
+    }
+
+    // ✅ NEW METHOD: Added to satisfy test case
+    public Long extractUserId(String token) {
+        return extractClaim(token, claims -> claims.get("userId", Long.class));
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
