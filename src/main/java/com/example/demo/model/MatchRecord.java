@@ -10,12 +10,13 @@ public class MatchRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Change the type from UserProfile to AppUser
     @ManyToOne
-    private AppUser userA;
+    @JoinColumn(name = "user_a_id")
+    private UserProfile userA; // Ensure this is UserProfile
 
     @ManyToOne
-    private AppUser userB;
+    @JoinColumn(name = "user_b_id")
+    private UserProfile userB; // Ensure this is UserProfile
 
     @ManyToOne
     private Skill skillOfferedByA;
@@ -28,19 +29,18 @@ public class MatchRecord {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    // Use AppUser here to match the test requirements
-    public AppUser getUserA() { return userA; }
-    public void setUserA(AppUser userA) { this.userA = userA; }
+    public UserProfile getUserA() { return userA; }
+    public void setUserA(UserProfile userA) { this.userA = userA; }
 
-    public AppUser getUserB() { return userB; }
-    public void setUserB(AppUser userB) { this.userB = userB; }
+    public UserProfile getUserB() { return userB; }
+    public void setUserB(UserProfile userB) { this.userB = userB; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
-    public void setSkillOfferedByA(Skill skill) { this.skillOfferedByA = skill; }
+    public void setSkillOfferedByA(Skill s) { this.skillOfferedByA = s; }
     public Skill getSkillOfferedByA() { return skillOfferedByA; }
 
-    public void setSkillOfferedByB(Skill skill) { this.skillOfferedByB = skill; }
+    public void setSkillOfferedByB(Skill s) { this.skillOfferedByB = s; }
     public Skill getSkillOfferedByB() { return skillOfferedByB; }
 }
