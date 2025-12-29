@@ -93,6 +93,13 @@
             <version>7.8.0</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng-engine</artifactId>
+            <version>1.0.5</version>
+            <scope>test</scope>
+        </dependency>
         
         <dependency>
             <groupId>org.mockito</groupId>
@@ -119,12 +126,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.2</version>
                 <configuration>
-                    <properties>
-                        <property>
-                            <name>testkind</name>
-                            <value>testng</value>
-                        </property>
-                    </properties>
+                    <includes>
+                        <include>**/SkillBarterMatchmakingPlatformTest.java</include>
+                    </includes>
                 </configuration>
             </plugin>
         </plugins>
